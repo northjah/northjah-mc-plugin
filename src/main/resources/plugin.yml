@@ -1,0 +1,8 @@
+name: northjah-mc-plugin
+version: '0.0.1-SNAPSHOT'
+main: com.northjah.mc.Application
+api-version: '1.21'
+prefix: northjah
+authors: [ northjah ]
+description: northjah papermc plugin
+website: mc.northjah.com
