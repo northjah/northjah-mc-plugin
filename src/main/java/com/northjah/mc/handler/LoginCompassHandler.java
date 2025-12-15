@@ -245,7 +245,7 @@ public class LoginCompassHandler implements Listener {
     private void openLoginBackpack(Player p) {
         // 创建 9 格单行背包
         Inventory gui = Bukkit.createInventory(
-                null,
+                p,
                 9,
                 Component.text("登录选项")
                         .color(TextColor.color(0xFF0000))
@@ -314,7 +314,7 @@ public class LoginCompassHandler implements Listener {
         //新手大礼包
         beginnerGiftPack(p);
         //放烟花
-        Location loc = p.getLocation().add(0, 2, 0); // 玩家头顶2格位置
+        Location loc = p.getLocation().add(0, 5, 0); // 玩家头顶2格位置
         Firework fw = (Firework) p.getWorld().spawnEntity(loc, EntityType.FIREWORK_ROCKET);
         FireworkMeta fwm = fw.getFireworkMeta();
 // 设置烟花效果：大星星型、多彩颜色、闪烁
@@ -342,6 +342,12 @@ public class LoginCompassHandler implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (!(e.getWhoClicked() instanceof Player p)) return;
+
+        Inventory clickedInv = e.getClickedInventory();
+        if (clickedInv == null || clickedInv.getHolder() != p) {
+            return; // 不是我们打开的界面，或者不是顶层库存 → 完全不管，不干扰
+        }
+
         UUID uuid = p.getUniqueId();
         if (!pendingLogin.contains(uuid)) return;
         Component title = e.getView().title();
