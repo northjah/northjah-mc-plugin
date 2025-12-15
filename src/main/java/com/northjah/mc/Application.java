@@ -14,7 +14,7 @@ public final class Application extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("§a[northjah-mc-plugin] 插件启动中...");
+        getLogger().info("[northjah-mc-plugin] 插件启动中...");
 
         // ============ 在这里配置和注册所有模块 ============
 
@@ -28,7 +28,7 @@ public final class Application extends JavaPlugin {
         getServer().getPluginManager().registerEvents(loginCompassHandler, this);
 
         // ================================================
-        getLogger().info("§a[northjah-mc-plugin] 插件启动完成！");
+        getLogger().info("[northjah-mc-plugin] 插件启动完成！");
     }
 
     @Override

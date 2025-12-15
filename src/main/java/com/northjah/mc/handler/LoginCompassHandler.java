@@ -72,7 +72,6 @@ public class LoginCompassHandler implements Listener {
     private static final String SYSTEM_LOGIN_MENU_BAD = "system_login_menu_bad";
 
 
-
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         // 定时补空气：只在水中且空气不足时补满（高效 + 精准）
@@ -128,10 +127,6 @@ public class LoginCompassHandler implements Listener {
 
         // 设置保护状态
         p.setInvulnerable(true);
-        p.setFoodLevel(20);
-        p.setFireTicks(0);
-        p.setFreezeTicks(0);
-        p.setRemainingAir(300);
         p.setGameMode(GameMode.ADVENTURE);
 
         //失明 + 去除夜视 start============================================================================
@@ -220,13 +215,11 @@ public class LoginCompassHandler implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (!pendingLogin.contains(p.getUniqueId())) return;
-
         if (e.getAction() != Action.RIGHT_CLICK_AIR &&
                 e.getAction() != Action.RIGHT_CLICK_BLOCK) {
             e.setCancelled(true);
             return;
         }
-
         ItemStack item = e.getItem();
         if (item == null) {
             e.setCancelled(true);
@@ -285,7 +278,7 @@ public class LoginCompassHandler implements Listener {
     }
 
     //登录后的处理
-    private void postLoginAction(Player p){
+    private void postLoginAction(Player p) {
         //加入游戏
         UUID uuid = p.getUniqueId();
         pendingLogin.remove(uuid);
