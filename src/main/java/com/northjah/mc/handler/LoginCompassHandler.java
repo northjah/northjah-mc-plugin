@@ -17,6 +17,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
@@ -74,6 +75,7 @@ public class LoginCompassHandler implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        e.joinMessage(null);
         // 定时补空气：只在水中且空气不足时补满（高效 + 精准）
         protectFromSuffocation();
         //加载gui
@@ -337,6 +339,11 @@ public class LoginCompassHandler implements Listener {
                 if (fw.isValid()) fw.detonate();
             }
         }.runTaskLater(app, 10L); // 0.5秒后引爆
+        p.sendMessage(
+                Component.text("[Server] ", NamedTextColor.AQUA)
+                        .append(Component.text(p.getName(), NamedTextColor.YELLOW))
+                        .append(Component.text(" 已加入服务器", NamedTextColor.RED))
+        );
     }
 
     @EventHandler
@@ -426,6 +433,11 @@ public class LoginCompassHandler implements Listener {
             fixed.setPitch(e.getTo().getPitch());
             e.setTo(fixed);
         }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        //Player player = event.getEntity();
     }
 
     @EventHandler
